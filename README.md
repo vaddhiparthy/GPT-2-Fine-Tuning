@@ -1,59 +1,45 @@
-# GPT-2 Fine-Tuning Pipeline
-This project demonstrates how to fine-tune a GPT-2 model on a custom text corpus using Hugging Face's Transformers library. The pipeline is divided into separate modules, making it easy to understand, modify, and extend.
+# GPT-2 Fine-Tuning Pipeline (Hugging Face Transformers)
 
-## Table of Contents
-Introduction
-Steps
-Elaborating on Each File
-Interpreting Metrics
-Advantages of Modularization
-Conclusion
+This repository contains a **modular pipeline** for fine-tuning OpenAI’s GPT-2 model on a custom text corpus using the Hugging Face `transformers` library.
 
-## 1. Introduction
-The GPT-2 (Generative Pre-trained Transformer 2) model is a powerful language model developed by OpenAI. Fine-tuning GPT-2 on a custom text corpus enables it to generate text in the style of that corpus. In this project, we utilize Hugging Face's Transformers library to load the GPT-2 model and tokenizer, create a dataset, perform train-test split, configure the Trainer instance, train and evaluate the model, and visualize the model performance.
+The project is split into small, focused scripts:
 
-## 2. Steps
-The project is divided into the following steps:
+- Install dependencies
+- Load GPT-2 and tokenizer
+- Create a tokenized dataset and collator
+- Split train / test
+- Configure a `Trainer`
+- Train and evaluate
+- Visualize training loss
 
-Install required libraries
-Import necessary modules
-Load GPT-2 model and tokenizer
-Create dataset and data_collator
-Perform train-test split
-Configure Trainer instance
-Train the model
-Evaluate the model
-Visualize the model performance
-3. Elaborating on Each File
-Each step is encapsulated in its own Python file, making the pipeline more manageable and organized:
+---
 
-**install_libraries.py:** Installs the required libraries (Transformers, PyTorch, and Datasets).
+## 1. Project goals
 
-**import_modules.py:** Imports the necessary modules from Transformers, PyTorch, and Matplotlib.
+1. Fine-tune GPT-2 on any plain-text corpus.
+2. Keep the training code **clean, modular, and reusable**.
+3. Quickly inspect model quality via evaluation metrics and training-loss plots.
 
-**load_gpt2.py:** Loads the pre-trained GPT-2 model and tokenizer.
+Typical use cases:
 
-**create_dataset.py:** Creates a TextDataset from the custom text corpus and a DataCollator for language modeling.
+- Domain-adapted GPT-2 (e.g., finance/legal/medical corpus).
+- Experimenting with different datasets / hyperparameters.
+- Teaching / demonstrating Hugging Face `Trainer` workflows.
 
-**train_test_split.py:** Splits the dataset into training and testing sets.
+---
 
-**configure_trainer.py:** Configures the Trainer instance with training arguments and datasets.
-**train_model.py:** Trains the GPT-2 model on the training set.
+## 2. Repository structure
 
-**evaluate_model.py:** Evaluates the model on the testing set.
-
-**visualize_performance.py:** Plots the training metrics (e.g., loss) against the training steps.
-
-## 4. Interpreting Metrics
-The main metric used to evaluate the model's performance is the loss, which measures the difference between the model's predictions and the true labels. A lower loss indicates better model performance. The loss is plotted against the training steps in the visualization provided by visualize_performance.py. This plot can be used to assess whether the model is converging or if there is a need to adjust the training parameters (e.g., learning rate, batch size, number of epochs).
-
-## 5. Advantages of Modularization
-Modularizing the program in this manner offers several advantages:
-
-**Readability:** Separating each step into its own file makes it easier to understand the overall pipeline and the specific purpose of each step.
-Maintainability: By isolating each step, it becomes simpler to update, modify, or debug the code in the future.
-**Reusability:** Individual modules can be easily reused in other projects or combined with different modules to create new pipelines.
-**Scalability:** As the project grows, modularization allows for better organization and scalability.
-
-## 6. Conclusion
-This project demonstrates a modular and organized approach to fine-tuning a GPT-2 model using Hugging Face's Transformers library. By breaking the pipeline into individual, self-contained modules, we have achieved a higher level of readability, maintainability, reusability, and scalability. The provided code covers all the essential steps, from installing the required libraries to training and evaluating the model. The visualization of training metrics helps users fine-tune the training parameters and gain insights into the model's performance. This project serves as a foundation for further exploration and experimentation with GPT-2 and other transformer-based models, making it a valuable resource for those interested in fine-tuning language models for various applications.
+```text
+.
+├─ README.md
+├─ configure_trainer.py        # build Trainer with training arguments
+├─ create_dataset.py           # create TextDataset + DataCollator
+├─ evaluate_model.py           # evaluate trained model
+├─ import_modules.py           # convenience imports (Torch, HF, Matplotlib)
+├─ install_libraries.py        # pip installs (transformers, torch, datasets)
+├─ load_gpt2.py                # load GPT-2 tokenizer, config, model
+├─ main.py                     # end-to-end orchestration script
+├─ train_model.py              # trainer.train() wrapper
+├─ train_test_split.py         # random train/test split for dataset
+└─ visualize_performance.py    # plot training metrics using Matplotlib
